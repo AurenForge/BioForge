@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon-192.png" />
+    <title>Hybrid Trainer</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: #f7f7fb; color: #111827; }
+      .btn { padding: .5rem 1rem; border-radius: 1rem; border: 0; cursor: pointer; background: #111827; color: #fff; }
+      .btn.secondary { background: #374151; }
+      .btn.danger { background: #dc2626; }
+      .pill { padding: .25rem .75rem; border-radius: 9999px; background: #f3f4f6; font-size: .75rem; font-weight: 600; margin-right: .5rem; display: inline-block; }
+      .card { border-radius: 1rem; background: white; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.05); }
+      header { position: sticky; top: 0; backdrop-filter: blur(8px); background: rgba(255,255,255,.7); border-bottom: 1px solid #e5e7eb; z-index: 10; }
+      .tabs button { margin-left: .5rem; }
+      #metricsChart, #macroChart, #volumeChart { width: 100%; height: 280px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div style="max-width:72rem;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:.75rem;">
+          <div style="width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:black;color:white;font-weight:700;">HC</div>
+          <div>
+            <div style="font-weight:600;">Hybrid Trainer</div>
+            <div style="font-size:12px;color:#4b5563;">Calisthenics • Weights • Running • Nutrition</div>
+          </div>
+        </div>
+        <div class="tabs">
+          <button class="btn" onclick="AppAPI.setTab('today')">Today</button>
+          <button class="btn secondary" onclick="AppAPI.setTab('plan')">Plan</button>
+          <button class="btn secondary" onclick="AppAPI.setTab('library')">Library</button>
+          <button class="btn secondary" onclick="AppAPI.setTab('history')">History</button>
+          <button class="btn secondary" onclick="AppAPI.setTab('coach')">Coach</button>
+          <button class="btn secondary" onclick="AppAPI.setTab('food')">Food</button>
+          <button class="btn secondary" onclick="AppAPI.setTab('metrics')">Metrics</button>
+          <button class="btn secondary" onclick="AppAPI.setTab('settings')">Settings</button>
+          <button class="btn secondary" onclick="AppAPI.exportJSON()">Export</button>
+          <button class="btn secondary" onclick="AppAPI.importJSON()">Import</button>
+        </div>
+      </div>
+    </header>
+
+    <main style="max-width:72rem;margin:0 auto;padding:24px 16px;">
+      <div id="root"></div>
+    </main>
+
+    <footer style="max-width:72rem;margin:0 auto;padding:24px 16px;text-align:center;font-size:12px;color:#6b7280;">
+      Built as an installable PWA. Add to your home screen from the browser menu.
+    </footer>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="./app.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./service-worker.js');
+        });
+      }
+    </script>
+  </body>
+</html>
